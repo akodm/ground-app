@@ -1,0 +1,5 @@
+.popup {
+	position: fixed;
+	background-color: rgba(182, 182, 182, 0.363);
+	z-index: 3000;
+}

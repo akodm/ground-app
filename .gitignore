@@ -1,0 +1,35 @@
+# client ignore
+
+# dependencies
+/client/node_modules
+/client/.pnp
+/client.pnp.js
+
+# testing
+/client/coverage
+
+# production
+/client/build
+
+# misc
+/client.DS_Store
+/client.env.local
+/client.env.development.local
+/client.env.test.local
+/client.env.production.local
+
+/clientnpm-debug.log*
+/clientyarn-debug.log*
+/clientyarn-error.log*
+
+# config
+/client/src/client-config.js
+
+
+# server ignore
+
+# dependencies
+/server/node_modules
+
+# config
+/server/server-config.js
