@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 import config from '../client-config';
 
-class map extends Component {
+class MapComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,4 +27,4 @@ class map extends Component {
 export default GoogleApiWrapper({
     apiKey: config.apiKey,
     language : "ko",
-})(map);
+})(MapComponent);

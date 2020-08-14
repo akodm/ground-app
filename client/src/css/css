@@ -1,0 +1,17 @@
+top color = #1565c0
+bot color = #90caf9
+
+side *
+z = 3005
+
+sidemenu *
+z = 3006
+
+sidemenu-overlay
+z = 3003
+
+sidemenu-menu
+z = 3004
+
+login / insert popup *
+z = 3015

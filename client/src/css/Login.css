@@ -1,0 +1,27 @@
+.login {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(73, 73, 73, 0.671);
+	overflow: hidden;
+	z-index: 3015;
+}
+
+.login-div {
+	width: 400px;
+	height: 500px;
+	padding: 20px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.login-close {
+	width: 100%;
+}
+
+.login-close:hover {
+	opacity: 0.6;
+}

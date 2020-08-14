@@ -1,0 +1,111 @@
+.sidemenu {
+	display: flex;
+	align-items: center;
+	position: fixed;
+	right: 0;
+	width: 85px;
+	height: 55px;
+	background-color: white;
+	margin-top: 55px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+	box-shadow: 1px 5px 5px 0px rgba(0, 0, 0, 0.39);
+	z-index: 3005;
+	transition-property: width;
+	transition-duration: 0.5s;
+}
+
+.sidemenu-none {
+	transition-property: width;
+	transition-duration: 0.5s;
+	width: 0px;
+}
+
+.sidemenu-login {
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin-left: -50px;
+	margin-top: 80px;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+	opacity: 1;
+	line-height: 25px;
+	animation-name: login-please;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes login-please {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.sidemenu > img {
+	width: 25px;
+	height: auto;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.sidemenu > img:hover {
+	opacity: 0.5;
+}
+
+.sidemenu-sub {
+	position: fixed;
+	background-color: rgba(58, 58, 58, 0.507);
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 3006;
+}
+
+.sidemenu-sub-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 3003;
+}
+
+.sidemenu-sub-menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	width: 80px;
+	height: 100%;
+	background-color: white;
+	overflow: hidden;
+	animation-name: side;
+	animation-duration: 0.5s;
+	z-index: 3004;
+}
+
+@keyframes side {
+	0% {
+		width: 0px;
+	}
+}
+
+.sidemenu-sub-menu > a > img {
+	width: 30px;
+	height: auto;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+
+.sidemenu-sub-menu > a > img:hover {
+	opacity: 0.5;
+}

@@ -1,0 +1,7 @@
+.main {
+	min-height: 1000px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(to top, #90caf9, #1565c0);
+}
