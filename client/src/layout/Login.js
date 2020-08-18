@@ -32,12 +32,12 @@ function Login(props) {
             });
 
             if(result.data) {
-                alert("가입되었습니다.");
+                alert("가입되었습니다. 기타 추가 정보를 프로필 페이지에서 작성할 수 있습니다.");
             } else {
                 alert("가입 중 에러가 발생했습니다. 다시 시도해주세요.");
             }
 
-            setLogin(false);
+            setToggle(true);
         } catch(err) {
             alert("에러가 발생했습니다. 다시 시도해 주세요.");
         }
@@ -46,7 +46,16 @@ function Login(props) {
     const login = async() => {
         const valid = validate();
         if(!valid) return;
+            const login = await axios.get(`${config.server}/users/one/login?name=${name}&pass=${pass}`);
+            
+            if(!login.data) { alert("닉네임 또는 비밀번호를 잘못 입력하였습니다."); return; }
 
+            const token = await axios.get(`${config.server}/sign?name=${login.data.name}&id=${login.data.id}`);
+            
+            if(!token.data) { alert("로그인 시도 중 에러가 발생했습니다. 다시 시도해 주세요."); return; }
+
+            localStorage.setItem("ground_user", token.data);
+            window.location.href = "/";
         try {
 
         } catch(err) {
@@ -93,7 +102,11 @@ function Login(props) {
                 </form>
                 <div className="login-btn"><Button onClick={() => !toggle ? insertClick() : login()} style={{width:"220px"}} variant="outlined" color="primary">{ toggle ? "로그인" : "가입하기" }</Button></div>
 
-                <div className="login-footer" onClick={() => !toggle ? setToggle(true) : setToggle(false)}>이미 가입되어 있으신가요?</div>
+                <div className="login-footer" onClick={() => !toggle ? setToggle(true) : setToggle(false)}>
+                    {
+                        !toggle ? "이미 가입되어 있으신가요?" : "아직 회원이 아니신가요?"
+                    }
+                </div>
             </div>
         </div>
     );

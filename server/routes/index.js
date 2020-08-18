@@ -17,9 +17,24 @@ router.get('/ping', function(req, res, next) {
   res.send("pong");
 });
 
+router.get("/sign" , async(req,res) => {
+	const user = req.query;
+	const payload = {
+		id : user.id,
+		name : user.name,
+	};
+	const token = await getToken(payload);
+	console.log(token)
+	if(token) {
+		res.send(token);
+	} else {
+		res.send(false);
+	}
+})
+
 router.get('/verify', (req, res, next)=>{
   try {
-      const token = req.headers['Authorization'] || req.query.token;
+      const token = req.headers['authorization'] || req.query.token;
       const getToken = jwt.verify(token, config.tokenKey);
       res.send(getToken);
   } catch(err) {
@@ -30,7 +45,8 @@ router.get('/verify', (req, res, next)=>{
 function getToken(data){
   try {
       const getToken = jwt.sign({
-        id : data.id
+        id : data.id,
+        name : data.name
       },
         config.tokenKey,
       {
