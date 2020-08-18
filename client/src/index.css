@@ -100,6 +100,8 @@ summary,
 time,
 mark,
 audio,
+input::placeholder,
+textarea::placeholder,
 video {
 	margin: 0;
 	padding: 0;

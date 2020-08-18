@@ -1,0 +1,19 @@
+.textfield {
+	padding: 10px;
+	position: relative;
+}
+
+.textfield-input {
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 200px;
+	height: 20px;
+	padding: 10px;
+	color: black;
+	outline: none;
+}
+
+.textfield-input:hover,
+.textfield-input:focus {
+	border: 1px solid rgba(0, 50, 107, 0.5);
+}

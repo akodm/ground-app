@@ -5,10 +5,14 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey : true,
             autoIncrement: true
         },
-        email : {
-            type: DataTypes.STRING,      // 이메일
+        name : {
+            type: DataTypes.STRING,      // 닉네임
             allowNull: false
-        }
+        },
+        pass : {
+            type: DataTypes.STRING,      // 비밀번호
+            allowNull: false
+        },
     });
     User.associate = function(models) {
 

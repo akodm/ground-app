@@ -11,12 +11,19 @@ function Main(props) {
 
             {/* 컨텐츠 영역 */}
             <section>
-                <div>
-                    <Link to="/map"><Button text="지도 보기" /></Link>
-                    {
-                        user &&
-                        <Link to={`/profile/${user.id}`}><Button text="내 프로필" /></Link>
-                    }
+                <div className="main-top">
+                    <img alt="map" src="/image/anayng.png"></img>
+
+                    <div className="main-top-text-div">
+                        <div className="main-top-text">경기도 안양시 지도</div>
+                        <div className="main-top-text">특별한 카테고리별 장소 및 추천</div>
+                        <Link to="/map"><Button text="지도 보기" style={{width: "250px"}} /></Link>
+                        {
+                            // user && 
+                            <Link to={`/profile/${user ? user.id : 0}`}><Button text="내 프로필" style={{width: "250px"}} /></Link>
+                        }
+                        <Link to="/category"><Button text="카테고리 보기" style={{width: "250px"}} /></Link>
+                    </div>
                 </div>
 
 
