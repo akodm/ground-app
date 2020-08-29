@@ -50,11 +50,14 @@ function Login(props) {
             
             if(!login.data) { alert("닉네임 또는 비밀번호를 잘못 입력하였습니다."); return; }
 
-            const token = await axios.get(`${config.server}/sign?name=${login.data.name}&id=${login.data.id}`);
-            
+            const token = await axios.post(`${config.server}/sign`, {
+                name : login.data.name,
+                id : login.data.id
+            });
+
             if(!token.data) { alert("로그인 시도 중 에러가 발생했습니다. 다시 시도해 주세요."); return; }
 
-            localStorage.setItem("ground_user", token.data);
+            localStorage.setItem("ground_user", JSON.stringify(token.data));
             window.location.href = "/";
         try {
 
@@ -84,7 +87,11 @@ function Login(props) {
 
                 <div className="login-title">로그인 및 회원가입</div>
                 
-                <form>
+                <form onKeyUp={function(e) {
+                    if(e.keyCode === 13) {
+                        !toggle ? insertClick() : login()
+                    }
+                }}>
                     <TextField
                         value={name}
                         type="text" 
