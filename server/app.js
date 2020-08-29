@@ -41,8 +41,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   console.log(err);
-  res.status(err.status || 500);
-  res.send("error");
+  res.send(false);
 });
 
 module.exports = app;
