@@ -9,7 +9,7 @@ function Main(props) {
         <div className="main">
             <div className="main-title" onClick={() => window.location.href = "/"}>aaa</div>
 
-            {/* 컨텐츠 영역 */}
+            {/* contents section */}
             <section>
                 <div className="main-top">
                     <img alt="map" src="/image/anayng.png"></img>
@@ -25,15 +25,6 @@ function Main(props) {
                         <Link to="/category"><Button text="카테고리 보기" style={{width: "250px"}} /></Link>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
             </section>
 
             <div className="main-footer">문의사항 / a8456452@naver.com</div>
