@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,      // 비밀번호
             allowNull: false
         },
+        ref : {
+            type: DataTypes.STRING,      // 리프레쉬 토큰
+        },
+        acs : {
+            type: DataTypes.STRING,      // 액세스 토큰
+        },
     });
     User.associate = function(models) {
 
