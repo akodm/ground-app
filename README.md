@@ -7,8 +7,7 @@
 
 ### 외부 API
 
--   KaKao Api ( Map, Login )
--   Google Login
+-   Google Map Api
 
 ### 툴
 
