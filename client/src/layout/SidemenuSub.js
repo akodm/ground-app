@@ -9,7 +9,7 @@ function SidemenuSub(props) {
 
     const logout = async() => {
         try {
-            await axios.get(`${config.server}/logout?id=${id}`);
+            await axios.get(`${config.server}/users/logout?id=${id}`);
 
             setUser(null);
             localStorage.removeItem("ground_user");

@@ -20,6 +20,7 @@ export default function Base() {
         userLogin();
     }, []);
 
+    // reconnection login check or reload
     async function userLogin() {
         if(localStorage.getItem("ground_user")) {
             try {

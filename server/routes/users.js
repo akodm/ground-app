@@ -3,23 +3,27 @@ var router = express.Router();
 let models = require('../models');
 let crypto = require('crypto');
 
+// const tokenModules = require('../tokenModules');
+// const tokenModuleFunction = new tokenModules;
+
 const config = require('../server-config');
 
+// db setting
 const User = models.user;
 
-// ===================== 데이터 베이스 쿼리 ===================== //
-// 전체 조회
+// ===================== db query ===================== //
+// all search
 router.get('/all', async(req, res, next) => {
     let result = null;
     try {
         result = await User.findAll();
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
 });
 
-// 한명 조회
+// one search
 router.get('/one', async(req, res) => {
     let result = null;
     try {
@@ -28,13 +32,13 @@ router.get('/one', async(req, res) => {
                 id : req.query.id
             }
         });
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
 });
 
-// 한명 조회
+// one search - name
 router.get('/one/name', async(req, res) => {
     let result = null;
     try {
@@ -43,13 +47,13 @@ router.get('/one/name', async(req, res) => {
                 name : req.query.name
             }
         });
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
 });
 
-// 생성
+// create
 router.post('/create', async(req, res) => {
     let pass = await hashFunc(req.body.pass);
     let result = null;
@@ -58,13 +62,13 @@ router.post('/create', async(req, res) => {
             name : req.body.name,
             pass,
         });
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
 });
 
-// 삭제
+// delete
 router.delete('/delete', async(req, res) => {
     let result = null;
     try {
@@ -73,26 +77,27 @@ router.delete('/delete', async(req, res) => {
                 id : req.query.id
             }
         });
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
 });
 
-// ====================== 기본 외 추가 쿼리 ====================== //
+// ====================== etc query ====================== //
 
-// 크립토 모듈을 이용한 해싱 암호화 함수
+// crypto modules - password hash
 async function hashFunc(pass) {
     let hash = null;
     try {
         hash = await crypto.createHmac(config.sha, config.secretKey).update(pass).digest(config.base); 
     } catch(err) {
-        console.log(__filename + " 에서 크립토 모듈 에러 : " + err);
+        console.log("크립토 모듈 에러 :" + err);
+        return null;
     }
     return hash;
 }
 
-// 로그인 조회
+// login search
 router.get('/one/login', async(req, res) => {
     let pass = await hashFunc(req.query.pass);
     let result = null;
@@ -103,10 +108,29 @@ router.get('/one/login', async(req, res) => {
                 pass,
             }
         });
+        res.send(result);
     } catch(err) {
         next(err);
     }
-    res.send(result);
+});
+
+// logout - token delete all
+router.get('/logout', async(req, res, next) => {
+    try {
+        await User.update(
+            {
+                ref : "",
+                acs : "",
+            }, {
+                where : {
+                    id : req.query.id
+                }
+            }
+        );
+        res.send(true);
+    } catch(err) {
+        next(err);
+    }
 });
 
 module.exports = router;
