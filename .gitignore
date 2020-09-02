@@ -24,7 +24,7 @@
 
 # config
 /client/src/client-config.js
-
+/client/public/index.html
 
 # server ignore
 
