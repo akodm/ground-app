@@ -8,11 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         title : {
             type: DataTypes.STRING,      // 제목 혹은 이름
         },
-        lat : {
-            type: DataTypes.STRING,      // 위도
+        content : {
+            type: DataTypes.TEXT,      // 간단 설명
         },
-        log : {
-            type: DataTypes.STRING,      // 경도
+        lat : {
+            type: DataTypes.DOUBLE,      // 위도
+        },
+        lng : {
+            type: DataTypes.DOUBLE,      // 경도
         },
     });
     Space.associate = function(models) {
