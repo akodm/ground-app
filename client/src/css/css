@@ -6,12 +6,17 @@ z = 3005
 
 sidemenu *
 z = 3006
-
 sidemenu-overlay
 z = 3003
-
 sidemenu-menu
 z = 3004
 
 login / insert popup *
 z = 3015
+
+markercreatepopup *
+z = 3010
+markercreatepopup-overlay
+z = 3011
+markercreatepopup-content
+z = 3012
