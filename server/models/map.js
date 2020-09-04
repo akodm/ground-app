@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         title : {
             type: DataTypes.STRING,      // 제목 혹은 이름
         },
+        content : {
+            type: DataTypes.TEXT,      // 간단 설명
+        },
+        cate : {
+            type: DataTypes.STRING,      // 분류 태그
+        },
         lat : {
             type: DataTypes.DOUBLE,      // 위도
         },
@@ -16,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         url : {
             type: DataTypes.STRING,      // 페이지 불러오기 위함
+        },
+        place_id : {
+            type: DataTypes.STRING,      // 장소 고유 아이디
         }
     });
     return Map;

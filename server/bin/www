@@ -12,7 +12,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 models.sequelize.query("SET FOREIGN_KEY_CHECKS = 0", {raw: true}).then(() => {
-    models.sequelize.sync({ force: true }).then(()=>{
+    models.sequelize.sync({ force: false }).then(()=>{
         server.listen(port, async() => {
             console.log(`서버 시작 포트번호 :  ${port}`);
             try {

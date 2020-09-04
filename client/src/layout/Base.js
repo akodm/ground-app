@@ -15,10 +15,25 @@ export default function Base() {
     const [ open, setOpen ] = useState(false);      // side popup
     const [ login, setLogin ] = useState(false);    // login popup
     const [ user, setUser ] = useState(null);       // user state
+    const [ mapArr, setMapArr ] = useState([]);
 
     useEffect(() => {
+        mapsGet();
         userLogin();
     }, []);
+
+    async function mapsGet() {
+        try {
+            const result = await axios.get(`${config.server}/maps/all`);
+
+            if(result.data[0]) {
+                setMapArr(result.data);
+            }
+        } catch(err) {
+            alert("로드 중 에러가 발생했습니다. 다시 시도해 주세요.");
+            return;
+        }
+    }
 
     // reconnection login check or reload
     async function userLogin() {
@@ -78,7 +93,7 @@ export default function Base() {
             {/* main contents */}
             <Switch>
                 <Route exact path="/" render={() => <Main user={user} />}  />
-                <Route exact path="/map" render={(props) => <Map {...props} />}  />
+                <Route exact path="/map" render={(props) => mapArr[0] ? <Map mapArr={mapArr} {...props} /> : <div></div>}  />
 
                 {/* url not found */}
                 <Route render={() => <Main user={user} />} />
