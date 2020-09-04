@@ -26,7 +26,7 @@ function Main(props) {
                     </div>
                 </div>
             </section>
-
+            
             <div className="main-footer">문의사항 / a8456452@naver.com</div>
         </div>
     );

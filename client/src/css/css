@@ -14,9 +14,13 @@ z = 3004
 login / insert popup *
 z = 3015
 
-markercreatepopup *
+markerpopup *
 z = 3010
-markercreatepopup-overlay
+markerpopup-overlay
 z = 3011
-markercreatepopup-content
+markerpopup-content
 z = 3012
+
+
+addmarker *
+z = 1500
