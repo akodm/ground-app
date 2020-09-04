@@ -1,0 +1,49 @@
+.addmarker {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 100px;
+	height: 100px;
+	margin-left: 30px;
+	margin-bottom: 30px;
+	bottom: 0;
+	left: 0;
+	border-radius: 50%;
+	background-color: white;
+	box-shadow: 0px 5px 5px 1px rgba(88, 88, 88, 0.418);
+	position: fixed;
+	z-index: 1500;
+	cursor: pointer;
+}
+
+.addmarker:hover {
+	background-color: rgb(231, 231, 231);
+}
+
+.addmarker > div {
+	color: #1565c0;
+}
+
+.addmarker > span {
+	position: absolute;
+	white-space: nowrap;
+	text-align: center;
+	margin-left: 120px;
+	left: 0;
+	animation-name: marker-guide;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes marker-guide {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
