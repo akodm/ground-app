@@ -24,7 +24,7 @@ function MarkerPopup(props) {
                 title, content, cate, lat, lng
             });
 
-            if(!result.data) {
+            if(!result.data && !result.data.data) {
                 alert("추가되지 않았습니다. 잠시 후 다시 시도해 주세요.");
                 return;
             }
@@ -34,18 +34,14 @@ function MarkerPopup(props) {
                 return;
             }
 
-            console.log(result.data);
-
-            const place = placeArr;
-            place.push({
-                title : result.data.title,
-                content : result.data.content,
-                cate : result.data.cate,
-                lat : result.data.lat,
-                lng : result.data.lng,
-            });
-
-            setPlaceArr(place);
+            setPlaceArr(placeArr.concat({
+                title : result.data.data.title,
+                content : result.data.data.content,
+                cate : result.data.data.cate,
+                lat : parseFloat(result.data.data.lat),
+                lng : parseFloat(result.data.data.lng),
+            }));
+            
             alert("새로운 장소를 등록하였습니다.");
             setOpen(false);
         } catch(err) {
