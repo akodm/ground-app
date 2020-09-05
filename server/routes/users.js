@@ -39,7 +39,7 @@ router.get('/one', async(req, res) => {
 });
 
 // one search - name
-router.get('/one/name', async(req, res) => {
+router.get('/one/name', async(req, res, next) => {
     let result = null;
     try {
         result = await User.findOne({
@@ -54,7 +54,7 @@ router.get('/one/name', async(req, res) => {
 });
 
 // create
-router.post('/create', async(req, res) => {
+router.post('/create', async(req, res, next) => {
     let pass = await hashFunc(req.body.pass);
     let result = null;
     try {
@@ -69,7 +69,7 @@ router.post('/create', async(req, res) => {
 });
 
 // delete
-router.delete('/delete', async(req, res) => {
+router.delete('/delete', async(req, res, next) => {
     let result = null;
     try {
         result = await User.destroy({
@@ -98,7 +98,7 @@ async function hashFunc(pass) {
 }
 
 // login search
-router.get('/one/login', async(req, res) => {
+router.get('/one/login', async(req, res, next) => {
     let pass = await hashFunc(req.query.pass);
     let result = null;
     try {
