@@ -17,6 +17,8 @@ export default function Base() {
     const [ user, setUser ] = useState(null);       // user state
     const [ mapArr, setMapArr ] = useState([]);
 
+    const [ load, setLoad ] = useState(false);
+
     useEffect(() => {
         mapsGet();
         userLogin();
@@ -33,6 +35,7 @@ export default function Base() {
             alert("로드 중 에러가 발생했습니다. 다시 시도해 주세요.");
             return;
         }
+        setLoad(true);
     }
 
     // reconnection login check or reload
@@ -93,7 +96,7 @@ export default function Base() {
             {/* main contents */}
             <Switch>
                 <Route exact path="/" render={() => <Main user={user} />}  />
-                <Route exact path="/map" render={(props) => mapArr[0] ? <Map mapArr={mapArr} {...props} /> : <div></div>}  />
+                <Route exact path="/map" render={(props) => load && <Map mapArr={mapArr} {...props} />}  />
 
                 {/* url not found */}
                 <Route render={() => <Main user={user} />} />
