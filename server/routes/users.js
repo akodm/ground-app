@@ -24,13 +24,29 @@ router.get('/all', async(req, res, next) => {
 });
 
 // one search
-router.get('/one', async(req, res) => {
+router.get('/one', async(req, res, next) => {
     let result = null;
     try {
         result = await User.findOne({
             where : {
                 id : req.query.id
             }
+        });
+        res.send(result);
+    } catch(err) {
+        next(err);
+    }
+});
+
+// one search - attr
+router.get('/one/attr', async(req, res, next) => {
+    let result = null;
+    try {
+        result = await User.findOne({
+            where : {
+                id : req.query.id
+            },
+            attributes: ['id', 'name', 'gender', 'address', 'open_add']
         });
         res.send(result);
     } catch(err) {
@@ -53,6 +69,25 @@ router.get('/one/name', async(req, res, next) => {
     }
 });
 
+// one search - name
+router.put('/update', async(req, res, next) => {
+    let result = null;
+    try {
+        result = await User.update({
+            gender : req.body.gender,
+            address : req.body.address,
+            open_add : req.body.open_add
+        }, {
+            where : {
+                id : req.body.id
+            }
+        });
+        res.send(result);
+    } catch(err) {
+        next(err);
+    }
+});
+
 // create
 router.post('/create', async(req, res, next) => {
     let pass = await hashFunc(req.body.pass);
@@ -61,6 +96,7 @@ router.post('/create', async(req, res, next) => {
         result = await User.create({
             name : req.body.name,
             pass,
+            open_add : "no",
         });
         res.send(result);
     } catch(err) {

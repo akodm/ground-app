@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,      // 비밀번호
             allowNull: false
         },
+        gender : {
+            type: DataTypes.STRING,      // 성별
+        },
+        address : {
+            type: DataTypes.STRING,      // 사는 지역
+        },
+        open_add : {
+            type: DataTypes.STRING,      // 사는 지역 공개 or 비공개 여부
+        },
         ref : {
             type: DataTypes.STRING,      // 리프레쉬 토큰
         },
