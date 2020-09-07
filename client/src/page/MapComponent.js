@@ -14,6 +14,7 @@ function MapComponent(props) {
     const [ currentLng, setCurrentLng ] = useState(0);
 
     const [ placeArr, setPlaceArr ] = useState(props.mapArr);
+    const user = props.user;
 
     useEffect(() => {
         function init() {
@@ -115,7 +116,9 @@ function MapComponent(props) {
             {
                 open && <MarkerPopup placeArr={placeArr} setPlaceArr={setPlaceArr} lat={currentLat} lng={currentLng} setOpen={setOpen} />
             }
-            <AddMarker lat={currentLat} lng={currentLng} setOpen={setOpen} text="장소 추가" guide="위치를 선택하고 추가 버튼을 눌러보세요!" />
+            {
+                user && <AddMarker lat={currentLat} lng={currentLng} setOpen={setOpen} text="장소 추가" guide="위치를 선택하고 추가 버튼을 눌러보세요!" />
+            }
         </>
     );
 }
