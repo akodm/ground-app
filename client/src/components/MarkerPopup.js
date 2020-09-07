@@ -24,7 +24,9 @@ function MarkerPopup(props) {
                 title, content, cate, lat, lng
             });
 
-            if(!result.data && !result.data.data) {
+            const { data } = result.data;
+
+            if(!result.data && !data) {
                 alert("추가되지 않았습니다. 잠시 후 다시 시도해 주세요.");
                 return;
             }
@@ -35,11 +37,11 @@ function MarkerPopup(props) {
             }
 
             setPlaceArr(placeArr.concat({
-                title : result.data.data.title,
-                content : result.data.data.content,
-                cate : result.data.data.cate,
-                lat : parseFloat(result.data.data.lat),
-                lng : parseFloat(result.data.data.lng),
+                title : data.title,
+                content : data.content,
+                cate : data.cate,
+                lat : parseFloat(data.lat),
+                lng : parseFloat(data.lng),
             }));
             
             alert("새로운 장소를 등록하였습니다.");
@@ -65,6 +67,7 @@ function MarkerPopup(props) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         label="이곳의 이름이 무엇인가요?"
+                        helperText="실제 이름과 같을수록 더 찾기 쉽습니다!"
                         variant="outlined"
                         size="small"
                         style={{ width:"100%" }}
@@ -77,7 +80,8 @@ function MarkerPopup(props) {
                         required
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        label="이곳을 간단하게 소개해주세요"
+                        label="이곳을 간단하게 소개해주세요."
+                        helperText="특징같은 것도 좋습니다."
                         variant="outlined"
                         size="small"
                         style={{ width:"100%" }}
@@ -90,7 +94,8 @@ function MarkerPopup(props) {
                         required
                         value={cate}
                         onChange={(e) => setCate(e.target.value)}
-                        label="이곳의 태그를 정해주세요 예) 카페"
+                        label="이곳의 태그를 정해주세요."
+                        helperText="예) 카페, 식당, 지하철역"
                         variant="outlined"
                         size="small"
                         style={{ width:"100%" }}
