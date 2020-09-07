@@ -89,7 +89,7 @@ router.get('/place', async(req, res, next) => {
     let result = null;
     try {
         result = await axios.get(`
-            https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${space}&inputtype=textquery&field=null&locationbias=circle:100@${textQuery.lat},${textQuery.lng}&key=${config.googleKey}
+            https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${space}&inputtype=textquery&field=null&locationbias=circle:50@${textQuery.lat},${textQuery.lng}&key=${config.googleKey}
         `);
 
         res.send(result.data);

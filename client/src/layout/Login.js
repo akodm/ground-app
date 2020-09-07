@@ -46,6 +46,7 @@ function Login(props) {
     const login = async() => {
         const valid = validate();
         if(!valid) return;
+        try {
             const login = await axios.get(`${config.server}/users/one/login?name=${name}&pass=${pass}`);
             
             if(!login.data) { alert("닉네임 또는 비밀번호를 잘못 입력하였습니다."); return; }
@@ -59,8 +60,6 @@ function Login(props) {
 
             localStorage.setItem("ground_user", JSON.stringify(token.data));
             window.location.href = "/";
-        try {
-
         } catch(err) {
             alert("로그인 시도 중 에러가 발생했습니다. 다시 시도해 주세요.");
         }

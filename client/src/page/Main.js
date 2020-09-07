@@ -7,7 +7,7 @@ function Main(props) {
     const { user } = props;
     return (
         <div className="main">
-            <div className="main-title" onClick={() => window.location.href = "/"}>aaa</div>
+            <div className="main-title" onClick={() => window.location.href = "/"}>안양 동네</div>
 
             {/* contents section */}
             <section>
@@ -16,7 +16,7 @@ function Main(props) {
 
                     <div className="main-top-text-div">
                         <div className="main-top-text">경기도 안양시 지도</div>
-                        <div className="main-top-text">특별한 카테고리별 장소 및 추천</div>
+                        <div className="main-top-text">카테고리별 장소 및 특별한 설명</div>
                         <Link to="/map"><Button text="지도 보기" style={{width: "250px"}} /></Link>
                         {
                             user && 
