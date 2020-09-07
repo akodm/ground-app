@@ -25,7 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         place_id : {
             type: DataTypes.STRING,      // 장소 고유 아이디
+        },
+        user_id : {
+            type: DataTypes.STRING,      // 추가한 유저 아이디
+        },
+        star_num : {
+            type: DataTypes.INTEGER(11),      // 즐겨찾기한 수
         }
     });
+
     return Map;
 };

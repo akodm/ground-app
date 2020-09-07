@@ -24,3 +24,6 @@ z = 3012
 
 addmarker *
 z = 1500
+
+profile-update-select-box*
+z = 500

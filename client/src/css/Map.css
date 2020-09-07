@@ -9,13 +9,13 @@
 	font-size: 12px;
 	line-height: 10px;
 	box-shadow: 0px 5px 5px 1px rgba(56, 56, 56, 0.356);
-	cursor: pointer;
 	white-space: nowrap;
+	position: relative;
 }
 
 .marker-div > span {
 	min-width: 25px;
-	margin: 5px;
+	margin: 3px;
 }
 
 .marker-cate {
@@ -28,8 +28,4 @@
 
 .marker-title {
 	color: rgb(21, 197, 35);
-}
-
-.gm-style-iw + div {
-	display: none;
 }

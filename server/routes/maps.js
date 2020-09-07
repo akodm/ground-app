@@ -4,6 +4,7 @@ const axios = require('axios');
 const models = require('../models');
 
 const Map = models.map;
+const User = models.user;
 
 // const tokenModules = require('../tokenModules');
 // const tokenModuleFunction = new tokenModules;
@@ -17,6 +18,23 @@ router.get('/all', async(req, res, next) => {
     let result = null;
     try {
         result = await Map.findAll();
+
+        res.send(result);
+    } catch(err) {
+        next(err);
+    }
+});
+
+// one user -> all search
+router.get('/all/user', async(req, res, next) => {
+    let result = null;
+    try {
+        result = await Map.findAll({
+            where : {
+                user_id : req.query.user_id
+            }
+        });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -40,6 +58,8 @@ router.post('/create', async(req, res, next) => {
                 cate : req.body.cate,
                 lat : req.body.lat,
                 lng : req.body.lng,
+                user_id : req.body.user_id,
+                star_num : 0
             }
         });
 
@@ -52,6 +72,46 @@ router.post('/create', async(req, res, next) => {
     }
 });
 
+// delete place
+router.delete('/delete', async(req, res, next) => {
+    try {
+        await Map.destroy({
+            where : {
+                id : req.query.id
+            }
+        });
+
+        res.send(true);
+    } catch(err) {
+        next(err);
+    }
+});
+
+// star 1 plus
+router.get("/decrement", async(req, res, next) => {
+    try {
+		await Map.decrement('star_num', { where : {
+			id : req.query.id
+        }});
+        
+        res.send(true);
+    } catch(err) {
+        next(err);
+    }
+});
+
+// star 1 minus
+router.get("/increment", async(req, res, next) => {
+    try {
+		await Map.increment('star_num', { where : {
+			id : req.query.id
+        }});
+        
+        res.send(true);
+    } catch(err) {
+        next(err);
+    }
+});
 
 // ========================== DB Query ======================== //
 /**
@@ -133,6 +193,27 @@ router.get('/place/detail', async(req, res, next) => {
             res.send(false);
             return;
         }
+    } catch(err) {
+        next(err);
+    }
+});
+
+/**
+ *  place find api
+ *  input query -> search
+ *  send lat, lng with place name
+ */
+router.get('/place/find', async(req, res, next) => {
+    const textQuery = req.query;
+
+    const space = encodeURIComponent(textQuery.title);
+    let result = null;
+    try {
+        result = await axios.get(`
+            https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${textQuery.lat},${textQuery.lng}&radius=1000&keyword=${space}&language=ko&key=${config.googleKey}
+        `);
+
+        res.send(result.data);
     } catch(err) {
         next(err);
     }

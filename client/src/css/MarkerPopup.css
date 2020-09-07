@@ -71,3 +71,42 @@
 	bottom: 0;
 	margin-bottom: 45px;
 }
+
+/* --------------- find popup -------------- */
+.findpopup-content {
+	display: flex;
+	flex-direction: column;
+	width: 350px;
+	height: 220px;
+	padding: 35px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 5px 5px 1px rgba(88, 88, 88, 0.418);
+	z-index: 3012;
+	position: relative;
+	animation-name: marker-popup;
+	animation-duration: 0.5s;
+}
+
+.findlist-content {
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	height: 95vh;
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 5px 5px 1px rgba(88, 88, 88, 0.418);
+	z-index: 3012;
+	position: relative;
+	overflow-y: auto;
+	animation-name: marker-popup;
+	animation-duration: 0.5s;
+}
+
+.findlist-null {
+	display: flex;
+	justify-self: center;
+	align-self: center;
+	margin-top: 250px;
+}

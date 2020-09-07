@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import config from '../client-config';
 
 function MarkerPopup(props) {
-    const { setOpen, lat, lng, placeArr, setPlaceArr } = props;
+    const { setOpen, lat, lng, placeArr, setPlaceArr, user } = props;
 
     const [ title, setTitle ] = useState("");
     const [ content, setContent ] = useState("");
@@ -21,7 +21,7 @@ function MarkerPopup(props) {
 
         try {
             const result = await axios.post(`${config.server}/maps/create`, {
-                title, content, cate, lat, lng
+                title, content, cate, lat, lng, user_id : user.id
             });
 
             const { data } = result.data;
@@ -55,7 +55,9 @@ function MarkerPopup(props) {
     return (
         <div className="markerpopup">
             <div className="markerpopup-overlay" onClick={() => setOpen(false)}></div>
-            <div className="markerpopup-content">
+            <div className="markerpopup-content" onKeyUp={function(e) {
+                    if(e.keyCode === 13) { addMarker() }
+                }}>
                 <div><CloseIcon style={{ cursor:"pointer" }} onClick={() => setOpen(false)} /></div>
                 <div className="markerpopup-title">장소 추가</div>
                 <pre className="markerpopup-guide">현재 이곳은 {lat + ", " + lng}</pre>
@@ -67,7 +69,7 @@ function MarkerPopup(props) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         label="이곳의 이름이 무엇인가요?"
-                        helperText="실제 이름과 같을수록 더 찾기 쉽습니다!"
+                        helperText="실제와 같아야 상세 정보를 볼 수 있습니다!"
                         variant="outlined"
                         size="small"
                         style={{ width:"100%" }}

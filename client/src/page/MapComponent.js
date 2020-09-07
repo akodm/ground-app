@@ -4,28 +4,44 @@ import axios from 'axios';
 import LoadMask from '../components/LoadMask';
 import AddMarker from '../components/AddMarker';
 import MarkerPopup from '../components/MarkerPopup';
+import FindPlace from '../components/FindPlace';
+import FindPopup from '../components/FindPopup';
 
 import config from '../client-config';
 
 function MapComponent(props) {
     const [ open, setOpen ] = useState(false);
+    const [ findOpen, setFindOpen ] = useState(false);
+
     const [ loadMask, setLoadMask ] = useState(false);
+
     const [ currentLat, setCurrentLat ] = useState(0);
     const [ currentLng, setCurrentLng ] = useState(0);
+
+    const [ centerLat, setCenterLat ] = useState(37.4011892);
+    const [ centerLng, setCenterLng ] = useState(126.9222421);
 
     const [ placeArr, setPlaceArr ] = useState(props.mapArr);
     const user = props.user;
 
     useEffect(() => {
         function init() {
+            // map init
             let map = new window.google.maps.Map(document.getElementById("map"), {
                 center: { lat: 37.4011892, lng: 126.9222421 },
                 zoom: 16,
             });
 
+            // map gragend event
+            map.addListener('dragend', function() {
+                setCenterLat(map.center.lat());
+                setCenterLng(map.center.lng());
+            });
+
             let markers = [];
             let infowindows = [];
 
+            // marker display
             placeArr.forEach((value, index) => {
                 markers.push(new window.google.maps.Marker({
                     position: { lat: value.lat, lng: value.lng },
@@ -37,6 +53,7 @@ function MapComponent(props) {
                     animation: window.google.maps.Animation.DROP,
                 }));
 
+                // marker infowindow set
                 infowindows.push(new window.google.maps.InfoWindow({
                     content: `<div class="marker-div">
                         <span class="marker-cate">${markers[index].cate}</span>
@@ -45,18 +62,21 @@ function MapComponent(props) {
                     </div>`
                 }));
 
+                // marker click event set
                 markers[index].addListener('click', function(e) {
                     infowindows[index].open(map, markers[index]);
                     markerClick(markers[index]);
                 });
             });
 
+            // 9 min after -> infowindow display
             setTimeout(() => {
                 for(let index = 0; index < infowindows.length; index++) {
                     infowindows[index].open(map, markers[index]);
                 }
             }, 900);
 
+            // map click event
             const clickMarker = [];
             map.addListener('click', function(e) {
                 setCurrentLat(e.latLng.lat());
@@ -67,6 +87,7 @@ function MapComponent(props) {
                     getClickMarker.setMap(null);
                 }
 
+                // here marker
                 clickMarker.push(new window.google.maps.Marker({
                     position: { lat: e.latLng.lat(), lng: e.latLng.lng() },
                     map: map,
@@ -114,7 +135,13 @@ function MapComponent(props) {
             <LoadMask load={loadMask} />
             <div id="map" style={{width:"100%", height:"100vh"}} />
             {
-                open && <MarkerPopup placeArr={placeArr} setPlaceArr={setPlaceArr} lat={currentLat} lng={currentLng} setOpen={setOpen} />
+                open && <MarkerPopup user={user} placeArr={placeArr} setPlaceArr={setPlaceArr} lat={currentLat} lng={currentLng} setOpen={setOpen} />
+            }
+            {
+                findOpen && <FindPopup setCurrentLat={setCurrentLat} setCurrentLng={setCurrentLng} setLoadMask={setLoadMask} setOpen={setOpen} setFindOpen={setFindOpen} lat={centerLat} lng={centerLng} />
+            }
+            {
+                user && <FindPlace setFindOpen={setFindOpen} lat={centerLat} lng={centerLng} text="장소 검색" />
             }
             {
                 user && <AddMarker lat={currentLat} lng={currentLng} setOpen={setOpen} text="장소 추가" guide="위치를 선택하고 추가 버튼을 눌러보세요!" />

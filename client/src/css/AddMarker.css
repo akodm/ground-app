@@ -36,6 +36,12 @@
 	animation-iteration-count: infinite;
 }
 
+/* ------------------- find place ------------------- */
+
+.findplace {
+	margin-bottom: 150px;
+}
+
 @keyframes marker-guide {
 	0% {
 		opacity: 0;
