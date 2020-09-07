@@ -9,7 +9,6 @@ process.env.NODE_ENV === "development" ? config = require("./server-config") : c
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var spaceRouter = require('./routes/space');
 var mapsRouter = require('./routes/maps');
 
 var app = express();
@@ -17,19 +16,18 @@ var app = express();
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", config.client_url);
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, Authorization, multipart/form-data");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/spaces', spaceRouter);
 app.use('/maps', mapsRouter);
 
 // catch 404 and forward to error handler
