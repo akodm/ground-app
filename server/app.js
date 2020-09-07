@@ -10,6 +10,7 @@ process.env.NODE_ENV === "development" ? config = require("./server-config") : c
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mapsRouter = require('./routes/maps');
+var followsRouter = require('./routes/follows');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/maps', mapsRouter);
+app.use('/follows', followsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

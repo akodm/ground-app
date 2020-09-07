@@ -17,6 +17,7 @@ router.get('/all', async(req, res, next) => {
     let result = null;
     try {
         result = await User.findAll();
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -32,6 +33,7 @@ router.get('/one', async(req, res, next) => {
                 id : req.query.id
             }
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -48,6 +50,7 @@ router.get('/one/attr', async(req, res, next) => {
             },
             attributes: ['id', 'name', 'gender', 'address', 'open_add']
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -63,6 +66,7 @@ router.get('/one/name', async(req, res, next) => {
                 name : req.query.name
             }
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -82,6 +86,7 @@ router.put('/update', async(req, res, next) => {
                 id : req.body.id
             }
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -96,8 +101,9 @@ router.post('/create', async(req, res, next) => {
         result = await User.create({
             name : req.body.name,
             pass,
-            open_add : "no",
+            open_add : false,
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -113,6 +119,7 @@ router.delete('/delete', async(req, res, next) => {
                 id : req.query.id
             }
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -144,6 +151,7 @@ router.get('/one/login', async(req, res, next) => {
                 pass,
             }
         });
+
         res.send(result);
     } catch(err) {
         next(err);
@@ -163,6 +171,7 @@ router.get('/logout', async(req, res, next) => {
                 }
             }
         );
+
         res.send(true);
     } catch(err) {
         next(err);

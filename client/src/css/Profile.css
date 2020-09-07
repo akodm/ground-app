@@ -77,6 +77,20 @@
 	line-height: 30px;
 }
 
+.profile-select {
+	width: 60px;
+	height: 35px;
+	font-family: "InfinitySans-BoldA1";
+	border: none;
+	outline: none;
+	font-size: 16px;
+}
+
+.profile-update-input {
+	outline: none;
+	width: 100px;
+}
+
 @media (max-width: 820px) {
 	.profile-box {
 		width: 100%;
