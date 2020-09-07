@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import config from '../client-config';
 
+// page
 import Main from '../page/Main';
 import Map from '../page/MapComponent';
+import Profile from '../page/Profile';
 
+// component or main dependency
 import Login from './Login';
 import Sidemenu from './Sidemenu';
 import SidemenuSub from './SidemenuSub';
@@ -76,7 +79,13 @@ export default function Base() {
                     return;
                 }
 
-                setUser({ id : result.data.id, name : result.data.name });
+                setUser({ 
+                    id : result.data.id, 
+                    name : result.data.name,
+                    gender : result.data.gender || null,
+                    address : result.data.address || null,
+                    open_add : result.data.open_add,
+                });
             } catch(err) {
                 alert("로그인 시도 중 에러가 발생했습니다. 다시 시도해 주세요.");
                 localStorage.removeItem("ground_user");
@@ -96,7 +105,8 @@ export default function Base() {
             {/* main contents */}
             <Switch>
                 <Route exact path="/" render={() => <Main user={user} />}  />
-                <Route exact path="/map" render={(props) => load && <Map mapArr={mapArr} {...props} />}  />
+                <Route exact path="/map" render={(props) => load && <Map mapArr={mapArr} user={user} {...props} />}  />
+                <Route exact path="/profile/:id" render={(props) => load && user ? <Profile user={user} {...props} /> : <Main user={user} />}  />
 
                 {/* url not found */}
                 <Route render={() => <Main user={user} />} />
