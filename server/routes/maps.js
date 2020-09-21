@@ -186,7 +186,7 @@ router.get('/place/detail', async(req, res, next) => {
                     }
                 }
             );
-    
+
             res.send(result.data);
             return;
         } else {

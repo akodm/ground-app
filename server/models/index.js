@@ -8,7 +8,10 @@ process.env.NODE_ENV === "development" ? config = require("../server-config") : 
 
 const db = {};
  
-const sequelize = new Sequelize(config.db, config.root, config.pass, { host: config.host, dialect: config.dia, timezone: '+09:00' });
+const sequelize = new Sequelize(config.db, config.root, config.pass, { host: config.host, dialect: config.dia, timezone: '+09:00', define: {
+    charset: "utf8mb4",
+    collate: "utf8mb4_unicode_ci"
+}});
 
 sequelize.authenticate().then(() => {
     console.log("연결 성공");

@@ -12,17 +12,6 @@ const config = require('../server-config');
 const User = models.user;
 
 // ===================== db query ===================== //
-// all search
-router.get('/all', async(req, res, next) => {
-    let result = null;
-    try {
-        result = await User.findAll();
-
-        res.send(result);
-    } catch(err) {
-        next(err);
-    }
-});
 
 // one search
 router.get('/one', async(req, res, next) => {
@@ -80,7 +69,7 @@ router.put('/update', async(req, res, next) => {
         result = await User.update({
             gender : req.body.gender,
             address : req.body.address,
-            open_add : req.body.open_add
+            open_add : req.body.open_add,
         }, {
             where : {
                 id : req.body.id
