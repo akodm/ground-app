@@ -1,0 +1,45 @@
+.followlist-content {
+	display: flex;
+	flex-direction: column;
+	width: 280px;
+	height: 80vh;
+	padding: 15px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 5px 5px 1px rgba(88, 88, 88, 0.418);
+	z-index: 3012;
+	color: black;
+	position: relative;
+	overflow-y: auto;
+	animation-name: marker-popup;
+	animation-duration: 0.5s;
+}
+
+.followlist-content > a {
+	text-decoration: none;
+	color: black;
+}
+
+.followlist-title {
+	margin-bottom: 50px;
+}
+
+.followlist-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 15px;
+	padding: 25px;
+	border: 2px solid rgba(0, 0, 0, 0.377);
+	border-radius: 8px;
+	line-height: 25px;
+	cursor: pointer;
+}
+
+.followlist-list:hover {
+	background-color: rgba(216, 216, 216, 0.212);
+}
+
+.followlist-list > span {
+	margin-right: 10px;
+}

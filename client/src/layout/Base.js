@@ -6,13 +6,14 @@ import config from '../client-config';
 
 // page
 import Main from '../page/Main';
-import Map from '../page/MapComponent';
 import Profile from '../page/Profile';
 
 // component or main dependency
 import Login from './Login';
 import Sidemenu from './Sidemenu';
 import SidemenuSub from './SidemenuSub';
+
+import Map from '../components/MapComponent';
 
 export default function Base() {
     const [ open, setOpen ] = useState(false);      // side popup
@@ -23,8 +24,12 @@ export default function Base() {
     const [ load, setLoad ] = useState(false);
 
     useEffect(() => {
-        mapsGet();
-        userLogin();
+        async function mount() {
+            await mapsGet();
+            userLogin();
+        }
+
+        mount();
     }, []);
 
     async function mapsGet() {
@@ -38,7 +43,6 @@ export default function Base() {
             alert("로드 중 에러가 발생했습니다. 다시 시도해 주세요.");
             return;
         }
-        setLoad(true);
     }
 
     // reconnection login check or reload
@@ -80,7 +84,7 @@ export default function Base() {
                 }
 
                 setUser({ 
-                    id : result.data.id, 
+                    id : result.data.id,
                     name : result.data.name,
                     gender : result.data.gender || null,
                     address : result.data.address || null,
@@ -91,6 +95,7 @@ export default function Base() {
                 localStorage.removeItem("ground_user");
             }
         }
+        setLoad(true);
     }
 
     return (
@@ -102,11 +107,52 @@ export default function Base() {
             {/* login / insert */}
             { login && <Login setLogin={setLogin} />}
 
-            {/* main contents */}
+            {/* contents */}
             <Switch>
+                {/* main page - first page */}
                 <Route exact path="/" render={() => <Main user={user} />}  />
-                <Route exact path="/map" render={(props) => load && <Map mapArr={mapArr} user={user} {...props} />}  />
-                <Route exact path="/profile/:id" render={(props) => load && user ? <Profile user={user} {...props} /> : <Main user={user} />}  />
+
+                {/* basic map */}
+                <Route exact path="/map" 
+                    render={(props) => load && 
+                        <Map 
+                            create={true}       // marker add func
+                            search={true}       // place find func
+                            setting={true}      // center set func
+                            mapArr={mapArr}     // marker arr obj
+                            user={user}         // user obj
+                            {...props}          // r-r-d props
+                        />
+                    }  
+                />
+
+                {/* profile */}
+                <Route exact path="/profile/:id" 
+                    render={(props) => load && user ? 
+                        <Profile 
+                            user={user} 
+                            {...props} 
+                        /> 
+                        : 
+                        <Main 
+                            user={user} 
+                        />
+                    }  
+                />
+
+                {/* custom map or category map */}
+                <Route exact path="/map/:category" 
+                    render={(props) => load && 
+                        <Map 
+                            create={true}       // marker add func
+                            search={true}       // place find func
+                            setting={true}      // center set func
+                            mapArr={mapArr}     // marker arr obj
+                            user={user}         // user obj
+                            {...props}          // r-r-d props
+                        />
+                    }  
+                />
 
                 {/* url not found */}
                 <Route render={() => <Main user={user} />} />

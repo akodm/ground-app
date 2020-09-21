@@ -65,6 +65,7 @@ function MarkerPopup(props) {
                 {/* title input */}
                 <div className="markerpopup-input">
                     <TextField
+                        autoFocus={true}
                         required
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}

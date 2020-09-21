@@ -5,7 +5,6 @@ import Item from './FindListItem';
 
 function FindList(props) {
     const { findData, setFindOpen, setCurrentLat, setCurrentLng, setOpen } = props;
-    console.log(findData);
 
     return (
         <div className="markerpopup">

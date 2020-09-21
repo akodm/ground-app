@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Switch from '@material-ui/core/Switch';
 import axios from 'axios';
 
+import List from '../components/FollowList';
+
 import config from '../client-config';
 
 function Profile(props) {
@@ -11,6 +13,9 @@ function Profile(props) {
     const [ maps, setMaps ] = useState(0);
     const [ follow, setFollow ] = useState(null);
     const [ followCount, setFollowCount ] = useState(0);
+    const [ myFollowCount, setMyFollowCount ] = useState([]);
+
+    const [ listOpen, setListOpen ] = useState(false);
 
     const [ update, setUpdate] = useState(false);
 
@@ -42,14 +47,16 @@ function Profile(props) {
                     return;
                 }
 
+                let myFollowCount = axios.get(`${config.server}/follows/all/user?user_id=${result.data.id}`);
                 let followCount = axios.get(`${config.server}/follows/all/target?target_id=${result.data.id}`);
                 let follow = axios.get(`${config.server}/follows/one?user_id=${user.id}&target_id=${result.data.id}`);
                 let mapCount = axios.get(`${config.server}/maps/all/user?user_id=${result.data.id}`);
 
-                await Promise.all([followCount, follow, mapCount]).then(value => {
-                    setFollowCount(value[0].data.length);
-                    setFollow(value[1].data);
-                    setMaps(value[2].data.length);
+                await Promise.all([myFollowCount, followCount, follow, mapCount]).then(value => {
+                    setMyFollowCount(value[0].data);
+                    setFollowCount(value[1].data.length);
+                    setFollow(value[2].data);
+                    setMaps(value[3].data.length);
                 });
                 
                 setGetUser(result.data);
@@ -120,6 +127,9 @@ function Profile(props) {
 
     return getUser ? (
         <div className="profile">
+            {
+                listOpen && <List data={myFollowCount} setListOpen={setListOpen} />
+            }
             <div className="profile-title" onClick={() => window.location.href = "/"}>안양 동네</div>
             
             <section className="profile-section">
@@ -165,6 +175,7 @@ function Profile(props) {
                     <div className="profile-space">
                         <div>등록 장소 : {maps + "개"}</div>
                         <div>팔로우 받은 유저 수 : {followCount + "명"}</div>
+                        <div onClick={() => setListOpen(true)} className="profile-myfollow">팔로우한 유저 : {myFollowCount.length + "명"}</div>
                     </div>
                 </div>
             </section>

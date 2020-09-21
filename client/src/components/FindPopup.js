@@ -47,11 +47,12 @@ function FindPopup(props) {
                 }}>
                 <div><CloseIcon style={{ cursor:"pointer" }} onClick={() => setFindOpen(false)} /></div>
                 <div className="markerpopup-title">장소 검색</div>
-                <pre className="markerpopup-guide">현재 센터는 {lat + ", " + lng}</pre>
+                <pre className="markerpopup-guide">현재 보고있는 지도 가운데 기준 1km 내로 찾습니다.</pre>
                 
                 {/* title input */}
                 <div className="markerpopup-input">
                     <TextField
+                        autoFocus={true}
                         required
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
