@@ -10,6 +10,8 @@ import FindPopup from '../components/FindPopup';
 import config from '../client-config';
 
 function MapComponent(props) {
+    const user = props.user;
+
     const [ open, setOpen ] = useState(false);
     const [ findOpen, setFindOpen ] = useState(false);
 
@@ -18,17 +20,16 @@ function MapComponent(props) {
     const [ currentLat, setCurrentLat ] = useState(0);
     const [ currentLng, setCurrentLng ] = useState(0);
 
-    const [ centerLat, setCenterLat ] = useState(37.4011892);
-    const [ centerLng, setCenterLng ] = useState(126.9222421);
+    const [ centerLat, setCenterLat ] = useState(user ? user.center_lat : 37.4011892);
+    const [ centerLng, setCenterLng ] = useState(user ? user.center_lng : 126.9222421);
 
     const [ placeArr, setPlaceArr ] = useState(props.mapArr);
-    const user = props.user;
 
     useEffect(() => {
         function init() {
             // map init
             let map = new window.google.maps.Map(document.getElementById("map"), {
-                center: { lat: 37.4011892, lng: 126.9222421 },
+                center: { lat: centerLat, lng: centerLng },
                 zoom: 16,
             });
 
