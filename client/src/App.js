@@ -15,6 +15,8 @@ import './css/Profile.css';
 import './css/FindListItem.css';
 import './css/FollowList.css';
 import './css/CenterSet.css';
+import './css/Category.css';
+import './css/CagetoryList.css';
 
 import Base from './layout/Base';
 

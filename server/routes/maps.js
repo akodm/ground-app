@@ -41,6 +41,32 @@ router.get('/all/user', async(req, res, next) => {
     }
 });
 
+router.get('/all/category', async(req, res, next) => {
+    try {
+        const result = await Map.findAll({
+            where : {
+                cate : req.query.cate
+            }
+        });
+
+        res.send(result);
+    } catch(err) {
+        next(err);
+    }
+});
+
+router.get('/all/category/init', async(req, res, next) => {
+    try {
+        const result = await Map.count({
+            group: ["cate"],
+        });
+
+        res.send(result);
+    } catch(err) {
+        next(err);
+    }
+});
+
 // create
 router.post('/create', async(req, res, next) => {
     let result = null;

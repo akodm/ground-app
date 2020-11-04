@@ -7,6 +7,7 @@ import config from '../client-config';
 // page
 import Main from '../page/Main';
 import Profile from '../page/Profile';
+import Category from '../page/Category';
 
 // component or main dependency
 import Login from './Login';
@@ -20,12 +21,14 @@ export default function Base() {
     const [ login, setLogin ] = useState(false);    // login popup
     const [ user, setUser ] = useState(null);       // user state
     const [ mapArr, setMapArr ] = useState([]);
+    const [ cateArr, setCateArr ] = useState([]);
 
     const [ load, setLoad ] = useState(false);
 
     useEffect(() => {
         async function mount() {
             await mapsGet();
+            await cateMapGet();
             userLogin();
         }
 
@@ -38,6 +41,19 @@ export default function Base() {
 
             if(result.data[0]) {
                 setMapArr(result.data);
+            }
+        } catch(err) {
+            alert("로드 중 에러가 발생했습니다. 다시 시도해 주세요.");
+            return;
+        }
+    }
+
+    async function cateMapGet() {
+        try {
+            const result = await axios.get(`${config.server}/maps/all/category/init`);
+
+            if(result.data[0]) {
+                setCateArr(result.data);
             }
         } catch(err) {
             alert("로드 중 에러가 발생했습니다. 다시 시도해 주세요.");
@@ -147,11 +163,19 @@ export default function Base() {
                             create={true}       // marker add func
                             search={true}       // place find func
                             setting={true}      // center set func
-                            mapArr={mapArr}     // marker arr obj
                             user={user}         // user obj
                             {...props}          // r-r-d props
                         />
                     }  
+                />
+
+                <Route exact path="/Category" 
+                    render={(props) => load &&
+                        <Category 
+                            user={user} 
+                            mapArr={cateArr}
+                            {...props}
+                    />}
                 />
 
                 {/* url not found */}

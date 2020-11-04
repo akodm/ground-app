@@ -32,11 +32,14 @@ function MapComponent(props) {
     const [ centerLat, setCenterLat ] = useState(user_center.lat);
     const [ centerLng, setCenterLng ] = useState(user_center.lng);
 
-    const [ placeArr, setPlaceArr ] = useState(props.mapArr);
+    // props.match.params?.category
+    const [ placeArr, setPlaceArr ] = useState(props.mapArr || []);
 
     useEffect(() => {
         async function init() {
             try {
+                await categoryMap();
+
                 // map init
                 let map = new window.google.maps.Map(document.getElementById("map"), {
                     center: { lat: centerLat, lng: centerLng },
@@ -112,6 +115,25 @@ function MapComponent(props) {
         }
         init();
     }, [placeArr]);
+
+    async  function categoryMap() {
+        try {
+            if(!placeArr[0] && props.match.params?.category) {
+                const result = await axios.get(`${config.server}/maps/all/category?cate=${props.match.params.category}`);
+
+                if(!result.data) {
+                    alert("해당 카테고리의 장소가 없습니다.");
+                    return;
+                }
+
+                await setPlaceArr(result.data);
+            }
+        } catch(err) {
+            alert("잘못된 카테고리입니다.");
+            window.location.href = "/";
+            return;
+        }
+    }
 
     async function markerClick(marker) {
         setLoadMask(true);

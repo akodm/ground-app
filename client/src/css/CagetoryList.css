@@ -1,0 +1,28 @@
+.cagetorylist {
+	min-width: 200px;
+	height: 80px;
+	margin: 15px;
+	background-color: white;
+	border: 1px solid rgba(104, 104, 104, 0.425);
+	border-radius: 8px;
+	box-shadow: 0px 5px 5px 1px rgba(46, 46, 46, 0.452);
+	cursor: pointer;
+}
+
+.cagetorylist:hover {
+	background-color: rgb(228, 228, 228);
+}
+
+.categorylist-title {
+	margin: 10px;
+	color: black;
+	font-size: 20px;
+	text-align: center;
+}
+
+.categorylist-count {
+	margin: 10px;
+	color: black;
+	font-size: 15px;
+	text-align: center;
+}
