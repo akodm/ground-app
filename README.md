@@ -17,6 +17,7 @@
 ### 외부 API
 
 -   Google Map Api (javascript)
+-   Google Place Api
 
 ### 툴
 
@@ -40,7 +41,7 @@
 
 ---
 
-장소 찾기 기능 및 추가를 합니다.
+구글 Place API를 이용해, 장소 찾기 기능 및 추가를 합니다.
 ![find](./readme/find.png)
 
 ---
